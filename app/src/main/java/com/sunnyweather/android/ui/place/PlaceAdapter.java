@@ -13,14 +13,15 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.sunnyweather.android.ui.weather.WeatherActivity;
 import com.sunnyweather.android.R;
 import com.sunnyweather.android.logic.model.Place;
-
 import java.util.List;
 
+//适配器
 public class PlaceAdapter extends RecyclerView.Adapter<PlaceAdapter.ViewHolder> {
-    Fragment fragment;
+    //把PlaceAdapter主构造函数中传入的Fragment对象改成PlaceFragment对象
+    PlaceFragment fragment;
     List<Place> placeList;
 
-    public PlaceAdapter(Fragment fragment, List<Place> placeList) {
+    public PlaceAdapter(PlaceFragment fragment, List<Place> placeList) {
         this.fragment = fragment;
         this.placeList = placeList;
     }
@@ -33,11 +34,13 @@ public class PlaceAdapter extends RecyclerView.Adapter<PlaceAdapter.ViewHolder> 
         viewHolder.itemView.setOnClickListener(v -> {
             int adapterPosition = viewHolder.getAdapterPosition();
             Place place = placeList.get(adapterPosition);
+
             Intent intent = new Intent(parent.getContext(), WeatherActivity.class);
             intent.putExtra("location_lng",place.getLocation().getLng());
             intent.putExtra("location_lat",place.getLocation().getLat());
             intent.putExtra("place_name",place.getName());
             fragment.startActivity(intent);
+            fragment.getViewModel().savePlace(place);
         });
         return viewHolder;
     }

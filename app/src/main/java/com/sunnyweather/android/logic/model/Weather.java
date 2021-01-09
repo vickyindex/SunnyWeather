@@ -1,5 +1,6 @@
 package com.sunnyweather.android.logic.model;
 
+//用于将Realtime和Daily对象封装起来
 public class Weather {
     RealtimeResponse.Realtime realtime;
     DailyResponse.Daily daily;

@@ -18,7 +18,6 @@ import androidx.lifecycle.ViewModelProviders
 import com.sunnyweather.android.logic.model.getSky
 import com.sunnyweather.android.R
 import com.sunnyweather.android.logic.model.Weather
-
 import kotlinx.android.synthetic.main.activity_weather.*
 import kotlinx.android.synthetic.main.forecast.*
 import kotlinx.android.synthetic.main.life_index.*
@@ -78,7 +77,7 @@ class WeatherActivity : AppCompatActivity() {
             }
         })
     }
-
+    //刷新天气的请求
     fun refreshWeather() {
         viewModel.refreshWeather(viewModel.locationLng, viewModel.locationLat)
         swipeRefresh.isRefreshing = true
@@ -100,7 +99,7 @@ class WeatherActivity : AppCompatActivity() {
         val days = daily.skycon.size
         for (i in 0 until days) {
             val skycon = daily.skycon[i]
-            val temperature = daily.temperature[i]
+            val temperature = daily.temperatures[i]
             val view = LayoutInflater.from(this).inflate(R.layout.forecast_item, forecastLayout, false)
             val dateInfo = view.findViewById(R.id.dateInfo) as TextView
             val skyIcon = view.findViewById(R.id.skyIcon) as ImageView
@@ -120,7 +119,7 @@ class WeatherActivity : AppCompatActivity() {
         coldRiskText.text = lifeIndex.coldRisk[0].desc
         dressingText.text = lifeIndex.dressing[0].desc
         ultravioletText.text = lifeIndex.ultraviolet[0].desc
-        carWashingText.text = lifeIndex.carWashing[0].desc
+        carWashingText.text = lifeIndex.carwashing[0].desc
         weatherLayout.visibility = View.VISIBLE
     }
 

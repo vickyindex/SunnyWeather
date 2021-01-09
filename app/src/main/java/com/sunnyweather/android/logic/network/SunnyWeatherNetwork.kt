@@ -11,13 +11,13 @@ import kotlin.coroutines.resumeWithException
 import kotlin.coroutines.suspendCoroutine
 
 object SunnyWeatherNetwork {
-
-
-    private val placeService = ServiceCreator.create(PlaceService::class.java)
+    //对接口进行封装
     private val weatherService = ServiceCreator.create(WeatherService::class.java)
     suspend fun getDailyWeather(lng: String,lat: String) = weatherService.getDailyWeather(lng,lat).await()
     suspend fun getRealtimeWeather(lng: String,lat: String) = weatherService.getRealtimeWeather(lng,lat).await()
-    suspend fun searchPlaces(query: String) = placeService.searchPlaces(query).await()
+
+    private val placeService = ServiceCreator.create(PlaceService::class.java)//创建PlaceService接口的动态代理对象
+    suspend fun searchPlaces(query: String) = placeService.searchPlaces(query).await() //当外部调用该函数时，Retrofit就会立即发起网络请求
 
     private suspend fun <T> Call<T>.await(): T {
         return suspendCoroutine { continuation ->
