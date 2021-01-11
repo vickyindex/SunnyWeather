@@ -26,16 +26,14 @@ class PlaceFragment : Fragment() {
     private lateinit var adapter: PlaceAdapter
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
-        return inflater.inflate(R.layout.fragment_place, container, false)//加载fragment_place布局
+        return inflater.inflate(R.layout.fragment_place, container, false)
     }
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
-
-        if(viewModel.isPlaceSaved()){
-            //获取已存储的数据并解析成Place对象
-            val place =viewModel.getSavedPlace();
-            val intent= Intent(context, WeatherActivity::class.java).apply {
+        if (activity is MainActivity && viewModel.isPlaceSaved()){
+            val place=viewModel.getSavedPlace()
+            val intent=Intent(context,WeatherActivity::class.java).apply {
                 putExtra("location_lng",place.location.lng)
                 putExtra("location_lat",place.location.lat)
                 putExtra("place_name",place.name)
@@ -44,13 +42,11 @@ class PlaceFragment : Fragment() {
             activity?.finish()
             return
         }
-
         val layoutManager = LinearLayoutManager(activity)
         recyclerView.layoutManager = layoutManager
         adapter = PlaceAdapter(this, viewModel.placeList)
         recyclerView.adapter = adapter
-        //监听搜索框内容的变化
-        searchPlaceEdit.addTextChangedListener{ editable: Editable? ->
+        searchPlaceEdit.addTextChangedListener { editable: Editable? ->
             val content = editable.toString()
             if (content.isNotEmpty()) {
                 viewModel.searchPlaces(content)
@@ -61,12 +57,9 @@ class PlaceFragment : Fragment() {
                 adapter.notifyDataSetChanged()
             }
         };
-        //获取服务器响应的数据
         viewModel.placeLiveData.observe(viewLifecycleOwner, Observer { result ->
             val places = result.getOrNull()
-            //判断数据
             if (places != null) {
-                //将数据添加到PlaceViewModel的placeList的集合中，并通知PlaceAdapter刷新界面
                 recyclerView.visibility = View.VISIBLE
                 bgImageView.visibility = View.GONE
                 viewModel.placeList.clear()

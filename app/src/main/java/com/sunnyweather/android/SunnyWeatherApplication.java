@@ -6,12 +6,12 @@ import android.content.Context;
 
 public class SunnyWeatherApplication extends Application {
 
-    public static  final String TOKEN = "86SoA3xHPRZfhUlp";//配置令牌值
+    public static  final String TOKEN = "cBZuCp0525KWlxse";
     @SuppressLint("StaticFieldLeak")
     static public Context context;
     @Override
     public void onCreate() {
         super.onCreate();
-        context =getApplicationContext(); //context调用Context对象
+        context =getApplicationContext();
     }
 }

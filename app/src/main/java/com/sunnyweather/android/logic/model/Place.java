@@ -7,6 +7,7 @@ public class Place {
     Location location;
     @SerializedName("formatted_address")
     String address;
+
     public String getName() {
         return name;
     }

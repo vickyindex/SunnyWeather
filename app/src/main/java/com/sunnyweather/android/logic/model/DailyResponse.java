@@ -5,7 +5,7 @@ import java.util.Date;
 import java.util.List;
 
 public class DailyResponse {
-    public RealtimeResponse.Result result;
+    public Result result;
     public String status;
 
     public static class Result {
@@ -13,10 +13,9 @@ public class DailyResponse {
     }
 
     public static class Daily {
-        public List<Temperature> temperatures;
+        public List<Temperature> temperature;
         public List<Skycon> skycon;
-        public Float temperature;
-        @SerializedName("lift_index")
+        @SerializedName("life_index")
         public LifeIndex lifeIndex;
     }
 
@@ -32,9 +31,9 @@ public class DailyResponse {
 
     public static class LifeIndex{
         public List<LifeDescription> coldRisk;
-        public List<LifeDescription> carwashing;
+        public List<LifeDescription> carWashing;
         public List<LifeDescription> ultraviolet;
-        public List<LifeDescription> dressing;
+        public  List<LifeDescription> dressing;
     }
 
     public static class LifeDescription{

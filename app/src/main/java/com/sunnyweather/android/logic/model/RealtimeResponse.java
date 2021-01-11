@@ -7,9 +7,9 @@ public class RealtimeResponse {
     public Result result;
     public String status;
 
-    public static class Result {
+    public static  class Result {
         public  Realtime realtime;
-        public DailyResponse.Daily daily;
+
     }
 
     public static  class AirQuality {
